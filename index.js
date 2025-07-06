@@ -11,6 +11,7 @@ let selectedBoy = "";
 let selectedStatus = "Unpaid";
 let selectedService = "";
 let total = 0;
+let totalExpenses = 0;
 let boyCounts = {
   "Joven": 0,
   "Pipoy": 0,
@@ -26,6 +27,7 @@ const boyDisplay = document.getElementById("selectedBoy");
 const statusDisplay = document.getElementById("selectedStatus");
 const serviceDisplay = document.getElementById("selectedService");
 const totalDisplay = document.getElementById("totalAmount");
+const expenseDisplay = document.getElementById("totalExpenses");
 const recordList = document.getElementById("recordList");
 const addBtn = document.getElementById("addRecordBtn");
 const plateInput = document.getElementById("plateNumber");
@@ -37,6 +39,72 @@ const useOtherBoy = document.getElementById("useOtherBoy");
 const otherBoyInput = document.getElementById("otherBoy");
 const useOtherService = document.getElementById("useOtherService");
 const otherServiceInput = document.getElementById("otherService");
+const addExpenseBtn = document.getElementById("addExpenseBtn");
+const expenseDesc = document.getElementById("expenseDesc");
+const expenseAmount = document.getElementById("expenseAmount");
+const expenseList = document.getElementById("expenseList");
+
+
+let expenseArray = JSON.parse(localStorage.getItem("expenseArray") || "[]");
+totalExpenses = expenseArray.reduce((sum, exp) => sum + exp.amount, 0);
+expenseDisplay.textContent = `₱${totalExpenses}`;
+
+function updateExpenseList() {
+  expenseList.innerHTML = "";
+  totalExpenses = 0;
+
+  expenseArray.forEach((exp, index) => {
+    const li = document.createElement("li");
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML = `
+      <span>
+        <strong>${exp.desc}</strong>: ₱${exp.amount}
+      </span>
+      <span>
+        <button class="btn btn-sm btn-warning me-1" onclick="editExpense(${index})">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteExpense(${index})">🗑️</button>
+      </span>
+    `;
+    expenseList.appendChild(li);
+    totalExpenses += exp.amount;
+  });
+
+  expenseDisplay.textContent = `₱${totalExpenses}`;
+  localStorage.setItem("expenseArray", JSON.stringify(expenseArray));
+}
+
+function editExpense(index) {
+  const exp = expenseArray[index];
+  const newDesc = prompt("Edit Description", exp.desc);
+  const newAmount = parseInt(prompt("Edit Amount", exp.amount));
+  if (newDesc && !isNaN(newAmount)) {
+    expenseArray[index] = { desc: newDesc, amount: newAmount };
+    updateExpenseList();
+  }
+}
+
+function deleteExpense(index) {
+  if (confirm("Are you sure you want to delete this expense?")) {
+    expenseArray.splice(index, 1);
+    updateExpenseList();
+  }
+}
+
+addExpenseBtn.addEventListener("click", () => {
+  const desc = expenseDesc.value.trim();
+  const amount = parseInt(expenseAmount.value.trim());
+
+  if (!desc || isNaN(amount)) {
+    alert("Please enter a valid description and amount.");
+    return;
+  }
+
+  expenseArray.push({ desc, amount });
+  updateExpenseList();
+  expenseDesc.value = "";
+  expenseAmount.value = "";
+});
+
 
 // Uppercase the plate number input
 plateInput.addEventListener("input", () => {
@@ -354,7 +422,9 @@ addBtn.addEventListener("click", () => {
 
 window.addEventListener("DOMContentLoaded", loadFromLocalStorage);
 
-document.getElementById("exportPDF").addEventListener("click", () => {
+// 🧾 Update exportPDF handler
+const originalExportBtn = document.getElementById("exportPDF");
+originalExportBtn.addEventListener("click", () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   const rows = [];
@@ -385,20 +455,43 @@ document.getElementById("exportPDF").addEventListener("click", () => {
     body: rows
   });
 
-  doc.text(`Total Amount: ${pdfTotal}`, 14, doc.lastAutoTable.finalY + 10);
+  let nextY = doc.lastAutoTable.finalY + 10;
+  doc.text(`Total Amount: ${pdfTotal}`, 14, nextY);
+  doc.text(`Total Expenses: ${totalExpenses}`, 14, nextY + 10);
+  doc.text(`Net Total: ${pdfTotal - totalExpenses}`, 14, nextY + 20);
+
+  if (expenseArray.length) {
+    doc.text("Expenses Breakdown:", 14, nextY + 35);
+    expenseArray.forEach((exp, i) => {
+      doc.text(`- ${exp.desc}: ${exp.amount}`, 14, nextY + 45 + i * 8);
+    });
+  }
+
   doc.save("carwash-records.pdf");
 });
 
+window.addEventListener("DOMContentLoaded", updateExpenseList);
 
 
-document.getElementById("clearAll").addEventListener("click", () => {
-  if (confirm("Are you sure you want to clear all records? This cannot be undone.")) {
+
+
+
+
+// ✅ Clear all records and expenses
+const clearAllBtn = document.getElementById("clearAll");
+clearAllBtn.addEventListener("click", () => {
+  if (confirm("Are you sure you want to clear all records and expenses? This cannot be undone.")) {
     localStorage.removeItem("carwashRecords");
     localStorage.removeItem("totalAmount");
     localStorage.removeItem("boyCounts");
+    localStorage.removeItem("expenseArray");
     recordList.innerHTML = "";
+    expenseList.innerHTML = "";
     total = 0;
+    totalExpenses = 0;
+    expenseArray = [];
     totalDisplay.textContent = "₱0";
+    expenseDisplay.textContent = "₱0";
     boyCounts = {
       "Joven": 0,
       "Pipoy": 0,
@@ -407,9 +500,18 @@ document.getElementById("clearAll").addEventListener("click", () => {
       "Obet": 0,
       "Willie": 0
     };
-    updateBoyCountDisplay();
-    alert("All records have been cleared.");
+    updateExpenseList();
+    alert("All records and expenses have been cleared.");
   }
 });
 
 
+// ✅ Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .then(() => console.log("✅ Service Worker Registered"))
+      .catch(err => console.log("❌ Service Worker Error", err));
+  });
+}

@@ -5,137 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Carwash Service</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="index.css" />
-
 </head>
 <body>
-  <div class="container">
+  <div class="container my-4">
     <h2 class="mb-4 text-center">🚗 <strong>Carwash Service</strong></h2>
 
-<div class="container">
-  <div class="row">
-    <!-- Carwash Boy Summary on the side -->
-    <div class="col-lg-4 order-lg-2 mb-3" id="floatingBoySummary">
-      <div class="bg-light p-3 rounded shadow-sm">
-        <h6>👨‍🔧 <strong>Carwash Boy Summary</strong></h6>
-        <ul class="list-unstyled mb-0">
-          <li>Joven: <span id="count-Joven">0</span></li>
-          <li>Pipoy: <span id="count-Pipoy">0</span></li>
-          <li>Richard: <span id="count-Richard">0</span></li>
-          <li>Avatar: <span id="count-Avatar">0</span></li>
-          <li>Obet: <span id="count-Obet">0</span></li>
-          <li>Willie: <span id="count-Willie">0</span></li>
-        </ul>
+    <div class="row">
+      <!-- Left Column: Summary + Expenses -->
+      <div class="col-lg-4 order-lg-2 mb-3">
+        <div class="bg-light p-3 rounded shadow-sm mb-3" id="floatingBoySummary">
+          <h6>👨‍🔧 <strong>Carwash Boy Summary</strong></h6>
+          <ul class="list-unstyled mb-0">
+            <li>Joven: <span id="count-Joven">0</span></li>
+            <li>Pipoy: <span id="count-Pipoy">0</span></li>
+            <li>Richard: <span id="count-Richard">0</span></li>
+            <li>Avatar: <span id="count-Avatar">0</span></li>
+            <li>Obet: <span id="count-Obet">0</span></li>
+            <li>Willie: <span id="count-Willie">0</span></li>
+          </ul>
+        </div>
+
+        <!-- Expenses Section -->
+        <div class="bg-light p-3 rounded shadow-sm">
+          <h6>💸 <strong>Expenses</strong></h6>
+          <div class="mb-2">
+            <input type="text" id="expenseDesc" class="form-control mb-2" placeholder="Expense description">
+            <input type="number" id="expenseAmount" class="form-control mb-2" placeholder="Amount">
+            <button class="btn btn-sm btn-warning w-100" id="addExpenseBtn">➕ Add Expense</button>
+          </div>
+          <ul class="list-group mb-2" id="expenseList"></ul>
+          <h6>Total Expenses: <span id="totalExpenses">₱0</span></h6>
+        </div>
+      </div>
+
+      <!-- Right Column: Form + Records -->
+      <div class="col-lg-8 order-lg-1">
+        <!-- Car Models -->
+        <div class="form-section">
+          <label class="form-label">Car Models:</label>
+          <div class="btn-group d-flex flex-wrap gap-2 mb-2" role="group">
+            <button class="btn btn-outline-primary model-btn flex-fill" data-model="CRV">CRV</button>
+            <button class="btn btn-outline-primary model-btn flex-fill" data-model="Vios">Vios</button>
+            <button class="btn btn-outline-primary model-btn flex-fill" data-model="Montero">Montero</button>
+          </div>
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" id="useOtherModel" />
+            <label class="form-check-label" for="useOtherModel">Use Other Model</label>
+          </div>
+          <div id="otherModelInputs" class="d-flex gap-2 mt-2" style="display: none;">
+            <input type="text" id="otherModel" class="form-control" placeholder="Model Name" />
+            <input type="number" id="otherPrice" class="form-control" placeholder="Price" />
+          </div>
+        </div>
+
+        <!-- Carwash Boys -->
+        <div class="form-section">
+          <label class="form-label">Carwash Boys:</label>
+          <div class="d-flex flex-wrap gap-2 mb-2">
+            <button class="btn btn-outline-success boy-btn" data-boy="Joven">Joven</button>
+            <button class="btn btn-outline-success boy-btn" data-boy="Avatar">Avatar</button>
+            <button class="btn btn-outline-success boy-btn" data-boy="Pipoy">Pipoy</button>
+            <button class="btn btn-outline-success boy-btn" data-boy="Richard">Richard</button>
+            <button class="btn btn-outline-success boy-btn" data-boy="Obet">Obet</button>
+            <button class="btn btn-outline-success boy-btn" data-boy="Willie">Willie</button>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="useOtherBoy" />
+            <label class="form-check-label" for="useOtherBoy">Use Other Carwash Boy</label>
+          </div>
+          <div id="otherBoyInputWrapper" class="mt-2" style="display: none;">
+            <input type="text" id="otherBoy" class="form-control" placeholder="Carwash Boy Name" />
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="form-section">
+          <label class="form-label">Services:</label>
+          <div class="d-flex flex-wrap gap-2 mb-2">
+            <button class="btn btn-outline-warning service-btn" data-service="Carwash">Carwash</button>
+            <button class="btn btn-outline-warning service-btn" data-service="Buffing">Buffing Wax</button>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="useOtherService" />
+            <label class="form-check-label" for="useOtherService">Use Other Service</label>
+          </div>
+          <div id="otherServiceInputWrapper" class="mt-2" style="display: none;">
+            <input type="text" id="otherService" class="form-control" placeholder="Service Name" />
+          </div>
+        </div>
+
+        <!-- Plate Number -->
+        <div class="form-section">
+          <label class="form-label" for="plateNumber">Plate Number:</label>
+          <input type="text" class="form-control" id="plateNumber" placeholder="e.g. NRE 4422" />
+        </div>
+
+        <!-- Status -->
+        <div class="form-section">
+          <label class="form-label">Status:</label>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary status-btn" data-status="Paid">Paid</button>
+            <button class="btn btn-outline-secondary status-btn" data-status="Unpaid">Unpaid</button>
+          </div>
+        </div>
+
+        <!-- Selection Display -->
+        <div class="form-section">
+          <p><strong>Selected Model:</strong> <span id="selectedModel">None</span></p>
+          <p><strong>Price:</strong> <span id="selectedPrice">₱0</span></p>
+          <p><strong>Carwash Boy:</strong> <span id="selectedBoy">None</span></p>
+          <p><strong>Service:</strong> <span id="selectedService">None</span></p>
+          <p><strong>Status:</strong> <span id="selectedStatus">Unpaid</span></p>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-section text-center">
+          <button id="addRecordBtn" class="btn btn-primary mb-2">➕ Add Record</button>
+          <button id="exportPDF" class="btn btn-success mb-2">📄 Export to PDF</button>
+          <button id="clearAll" class="btn btn-danger mb-2">🗑️ Clear All</button>
+          <h5 class="mt-3">Total Amount: <span id="totalAmount">₱0</span></h5>
+        </div>
+
+        <!-- Record List -->
+        <div id="recordList" class="mt-4"></div>
       </div>
     </div>
-
-    <!-- Main form section -->
-    <div class="col-lg-8 order-lg-1">
-      <!-- your form sections go here... -->
-    </div>
-  </div>
-</div>
-
-
-<!-- Car Model -->
-<div class="form-section">
-  <label class="form-label">Car Models:</label>
-  <div class="btn-group d-flex flex-wrap gap-2 mb-2" role="group" aria-label="Car models">
-    <button type="button" class="btn btn-outline-primary model-btn flex-fill" data-model="CRV">CRV</button>
-    <button type="button" class="btn btn-outline-primary model-btn flex-fill" data-model="Vios">Vios</button>
-    <button type="button" class="btn btn-outline-primary model-btn flex-fill" data-model="Montero">Montero</button>
   </div>
 
-  <div class="form-check mt-2">
-    <input class="form-check-input" type="checkbox" id="useOtherModel" />
-    <label class="form-check-label" for="useOtherModel">Use Other Model</label>
-  </div>
-
-  <div id="otherModelInputs" class="d-flex gap-2 mt-2" style="display: none;">
-    <input type="text" id="otherModel" class="form-control" placeholder="Model Name" />
-    <input type="number" id="otherPrice" class="form-control" placeholder="Price" />
-  </div>
-</div>
-
-
-<!-- Carwash Boys -->
-<div class="form-section">
-  <label class="form-label">Carwash Boys:</label>
-  <div class="d-flex flex-wrap gap-2 mb-2">
-    <button class="btn btn-outline-success boy-btn" data-boy="Joven">Joven</button>
-    <button class="btn btn-outline-success boy-btn" data-boy="Avatar">Avatar</button>
-    <button class="btn btn-outline-success boy-btn" data-boy="Pipoy">Pipoy</button>
-    <button class="btn btn-outline-success boy-btn" data-boy="Richard">Richard</button>
-    <button class="btn btn-outline-success boy-btn" data-boy="Obet">Obet</button>
-    <button class="btn btn-outline-success boy-btn" data-boy="Wi">Willie</button>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="useOtherBoy" />
-    <label class="form-check-label" for="useOtherBoy">Use Other Carwash Boys</label>
-  </div>
-  <div id="otherBoyInputWrapper" class="mt-2" style="display:none;">
-    <input type="text" id="otherBoy" class="form-control" placeholder="Carwash Boy Name" />
-  </div>
-</div>
-
-<!-- Services -->
-<div class="form-section">
-  <label class="form-label">Services:</label>
-  <div class="d-flex flex-wrap gap-2 mb-2">
-    <button class="btn btn-outline-warning service-btn" data-service="Carwash">Carwash</button>
-    <button class="btn btn-outline-warning service-btn" data-service="Buffing">Buffing Wax</button>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="useOtherService" />
-    <label class="form-check-label" for="useOtherService">Use Other Service</label>
-  </div>
-  <div id="otherServiceInputWrapper" class="mt-2" style="display:none;">
-    <input type="text" id="otherService" class="form-control" placeholder="Service Name" />
-  </div>
-</div>
-
-    <!-- Plate Number -->
-    <div class="form-section">
-      <label class="form-label" for="plateNumber">Plate Number:</label>
-      <input type="text" class="form-control" id="plateNumber" placeholder="e.g. NRE 4422" />
-    </div>
-
-    <!-- Status -->
-    <div class="form-section">
-      <label class="form-label">Status:</label>
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-secondary status-btn" data-status="Paid">Paid</button>
-        <button class="btn btn-outline-secondary status-btn" data-status="Unpaid">Unpaid</button>
-      </div>
-    </div>
-
-    <!-- Selection Display -->
-    <div class="form-section">
-      <p><strong>Selected Model:</strong> <span id="selectedModel">None</span></p>
-      <p><strong>Price:</strong> <span id="selectedPrice">₱0</span></p>
-      <p><strong>Carwash Boys:</strong> <span id="selectedBoy">None</span></p>
-      <p><strong>Service:</strong> <span id="selectedService">None</span></p>
-      <p><strong>Status:</strong> <span id="selectedStatus">Unpaid</span></p>
-    </div>
-
-    <!-- Actions -->
-    <div class="form-section text-center">
-      <button id="addRecordBtn" class="btn btn-primary mb-2">➕ Add Record</button>
-      <button id="exportPDF" class="btn btn-success mb-2">📄 Export to PDF</button>
-      <button id="clearAll" class="btn btn-danger mb-2">🗑️ Clear All</button>
-      <h5 class="mt-3">Total Amount: <span id="totalAmount">₱0</span></h5>
-    </div>
-
-    <!-- Records -->
-    <div id="recordList" class="mt-4"></div>
-  </div>
-
-<!-- Scripts -->
- <script src="js/jspdf.umd.min.js"></script>
+  <!-- Scripts -->
+  <script src="js/jspdf.umd.min.js"></script>
   <script src="js/jspdf.plugin.autotable.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-<script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
