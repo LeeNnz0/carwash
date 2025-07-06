@@ -492,16 +492,17 @@ clearAllBtn.addEventListener("click", () => {
     expenseArray = [];
     totalDisplay.textContent = "₱0";
     expenseDisplay.textContent = "₱0";
-    boyCounts = {
-      "Joven": 0,
-      "Pipoy": 0,
-      "Richard": 0,
-      "Avatar": 0,
-      "Obet": 0,
-      "Willie": 0
-    };
-    updateExpenseList();
-    alert("All records and expenses have been cleared.");
+  boyCounts = {
+  "Joven": 0,
+  "Pipoy": 0,
+  "Richard": 0,
+  "Avatar": 0,
+  "Obet": 0,
+  "Willie": 0
+};
+updateExpenseList();
+updateBoyCountDisplay(); // ✅ Add this line
+alert("All records and expenses have been cleared.");
   }
 });
 
