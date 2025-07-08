@@ -1,102 +1,177 @@
-/* General layout */
+/* Base Styles */
 body {
+  font-family: 'Segoe UI', sans-serif;
   background-color: #f8f9fa;
-  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
+/* Section Cards */
 .form-section {
   margin-bottom: 1.5rem;
-}
-
-button.selected {
-  border-width: 2px;
-  background-color: #0d6efd;
-  color: #fff;
-}
-
-#floatingBoySummary {
-  padding: 1rem;
-  background-color: #e9ecef;
-  border-radius: 0.5rem;
-}
-
-/* Sticky boy summary on large screens */
-@media (min-width: 992px) {
-  #floatingBoySummary {
-    position: sticky;
-    top: 1rem;
-  }
-}
-
-/* Responsive button layout (default: 3 per row) */
-.d-flex.flex-wrap.gap-2 > .btn {
-  flex: 1 1 calc(33.333% - 0.5rem);
-}
-
-/* Buttons full width on small screens */
-@media (max-width: 576px) {
-  .d-flex.flex-wrap.gap-2 > .btn {
-    flex: 1 1 100%;
-  }
-}
-
-/* Record Card Styling */
-.card {
-  background-color: #fff;
-  padding: 1rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease-in-out;
 }
 
-.card.paid {
-  background-color: #d4edda;
+.form-section:hover {
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.08);
 }
 
-.card.unpaid {
-  background-color: #f8d7da;
+/* Buttons */
+button,
+.btn {
+  transition: all 0.2s ease-in-out;
 }
 
-.selected {
+button:hover,
+.btn:hover {
+  transform: scale(1.03);
+}
+
+/* Highlight Selected Buttons */
+.model-btn.selected,
+.boy-btn.selected,
+.service-btn.selected,
+.price-btn.selected,
+.status-btn.selected {
   background-color: #0d6efd;
-  color: white;
+  color: #fff;
   border-color: #0d6efd;
 }
 
-/* Always capitalize text inputs */
-input[type="text"] {
-  text-transform: uppercase;
+/* Carwash Cards */
+#recordList .card {
+  margin-bottom: 1rem;
+  border-left: 5px solid #0d6efd;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  transition: transform 0.2s ease;
 }
 
-/* Additional mobile responsiveness */
-@media (max-width: 767px) {
-  .form-section {
-    margin-bottom: 1.5rem;
+#recordList .card:hover {
+  transform: translateY(-3px);
+}
+
+#recordList .card[data-paid="true"] {
+  border-left-color: #198754;
+  background-color: #e9f7ef;
+}
+
+#recordList .card[data-paid="false"] {
+  border-left-color: #dc3545;
+  background-color: #f8d7da;
+}
+
+/* Summary Box */
+.summary-box {
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Carwash Boy Summary */
+#floatingBoySummary ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+#floatingBoySummary ul li {
+  padding: 4px 0;
+  font-weight: 500;
+  border-bottom: 1px dashed #dee2e6;
+}
+
+#floatingBoySummary span {
+  float: right;
+  font-weight: bold;
+}
+
+/* Expense Item */
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item button {
+  font-weight: bold;
+  padding: 0 0.5rem;
+  line-height: 1;
+}
+
+/* Price & Dropdown Layouts */
+.select-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.select-group select,
+.select-group input {
+  min-width: 150px;
+}
+
+/* Hide manual inputs initially */
+#otherModelInputs,
+#otherBoyInputs,
+#otherServiceInputs {
+  display: none;
+}
+
+/* No Records Message */
+#noRecordsMessage {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-top: 1rem;
+  display: none;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ced4da;
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .select-group {
+    flex-direction: column;
   }
 
-  #floatingBoySummary {
-    order: 2 !important;
-    margin-top: 1rem;
+  .btn-group {
+    flex-direction: column;
   }
 
-  .form-label {
-    font-size: 0.95rem;
+  .btn-group .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 
-  .btn {
-    font-size: 0.875rem;
-    padding: 0.375rem 0.75rem;
+  #recordList .card {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-section,
+  .summary-box {
+    padding: 0.75rem;
   }
 
-  .form-control {
-    font-size: 0.9rem;
-  }
-
-  .btn-group.flex-wrap .btn {
-    flex: 1 1 calc(50% - 0.5rem);
-  }
-
-  .d-flex.flex-wrap.gap-2 > .btn {
-    flex: 1 1 calc(50% - 0.5rem);
+  h2 {
+    font-size: 1.5rem;
   }
 }
