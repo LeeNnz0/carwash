@@ -6,7 +6,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 /* Section Cards */
 .form-section {
   margin-bottom: 1.5rem;
@@ -17,22 +16,18 @@ body {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.2s ease-in-out;
 }
-
 .form-section:hover {
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.08);
 }
-
 /* Buttons */
 button,
 .btn {
   transition: all 0.2s ease-in-out;
 }
-
 button:hover,
 .btn:hover {
   transform: scale(1.03);
 }
-
 /* Highlight Selected Buttons */
 .model-btn.selected,
 .boy-btn.selected,
@@ -43,7 +38,6 @@ button:hover,
   color: #fff;
   border-color: #0d6efd;
 }
-
 /* Carwash Cards */
 #recordList .card {
   margin-bottom: 1rem;
@@ -53,21 +47,17 @@ button:hover,
   padding: 1rem;
   transition: transform 0.2s ease;
 }
-
 #recordList .card:hover {
   transform: translateY(-3px);
 }
-
 #recordList .card[data-paid="true"] {
   border-left-color: #198754;
   background-color: #e9f7ef;
 }
-
 #recordList .card[data-paid="false"] {
   border-left-color: #dc3545;
   background-color: #f8d7da;
 }
-
 /* Summary Box */
 .summary-box {
   padding: 1rem;
@@ -76,56 +66,47 @@ button:hover,
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
-
 /* Carwash Boy Summary */
 #floatingBoySummary ul {
   padding-left: 0;
   list-style: none;
 }
-
 #floatingBoySummary ul li {
   padding: 4px 0;
   font-weight: 500;
   border-bottom: 1px dashed #dee2e6;
 }
-
 #floatingBoySummary span {
   float: right;
   font-weight: bold;
 }
-
 /* Expense Item */
 .list-group-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .list-group-item button {
   font-weight: bold;
   padding: 0 0.5rem;
   line-height: 1;
 }
-
 /* Price & Dropdown Layouts */
 .select-group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
 .select-group select,
 .select-group input {
   min-width: 150px;
 }
-
 /* Hide manual inputs initially */
 #otherModelInputs,
 #otherBoyInputs,
 #otherServiceInputs {
   display: none;
 }
-
 /* No Records Message */
 #noRecordsMessage {
   text-align: center;
@@ -134,43 +115,35 @@ button:hover,
   margin-top: 1rem;
   display: none;
 }
-
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: #ced4da;
   border-radius: 3px;
 }
-
 /* Responsive */
 @media (max-width: 768px) {
   .select-group {
     flex-direction: column;
   }
-
   .btn-group {
     flex-direction: column;
   }
-
   .btn-group .btn {
     width: 100%;
     margin-bottom: 0.5rem;
   }
-
   #recordList .card {
     padding: 0.75rem;
   }
 }
-
 @media (max-width: 576px) {
   .form-section,
   .summary-box {
     padding: 0.75rem;
   }
-
   h2 {
     font-size: 1.5rem;
   }

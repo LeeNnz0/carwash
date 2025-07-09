@@ -9,13 +9,14 @@
   <link rel="stylesheet" href="index.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-  <link rel="manifest" href="manifest.json" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <div class="container my-4">
     <h2 class="text-center fw-bold mb-4">Carwash Record System</h2>
-
     <!-- Brand & Model -->
     <div class="form-section">
       <label class="form-label fw-bold">Select Brand and Model:</label>
@@ -36,12 +37,10 @@
           <option value="Chery">Chery</option>
           <option value="Geely">Geely</option>
         </select>
-
         <select id="modelDropdown" class="form-select" disabled>
           <option value="">-- Select Model --</option>
         </select>
       </div>
-
       <div class="form-check mt-2">
         <input class="form-check-input" type="checkbox" id="useOtherModel" />
         <label class="form-check-label" for="useOtherModel">Use Other Model</label>
@@ -51,7 +50,6 @@
         <input type="number" id="otherPrice" class="form-control" placeholder="Enter Price" />
       </div>
     </div>
-
     <!-- Prices -->
     <div class="form-section">
       <label class="form-label fw-bold">Select Price:</label>
@@ -65,7 +63,6 @@
         <button class="btn btn-outline-primary price-btn" data-price="500">₱500</button>
       </div>
     </div>
-
     <!-- Carwash Boy -->
     <div class="form-section">
       <label class="form-label fw-bold">Select Carwash Boy:</label>
@@ -85,7 +82,6 @@
         <input type="text" id="otherBoy" class="form-control" placeholder="Enter Carwash Boy Name" />
       </div>
     </div>
-
     <!-- Services -->
     <div class="form-section">
       <label class="form-label fw-bold">Select Service:</label>
@@ -102,21 +98,17 @@
         <input type="text" id="otherService" class="form-control" placeholder="Enter Custom Service" />
       </div>
     </div>
-
     <!-- Plate Number + Status -->
     <div class="form-section">
       <label class="form-label fw-bold">Plate Number:</label>
       <input type="text" id="plateNumber" class="form-control mb-2" placeholder="e.g. ABC-1234" />
-
       <label class="form-label fw-bold">Select Status:</label>
       <div class="d-flex flex-wrap gap-2 mb-2">
         <button class="btn btn-outline-success status-btn" data-status="Paid">Paid</button>
         <button class="btn btn-outline-danger status-btn" data-status="Unpaid">Unpaid</button>
       </div>
-
       <button class="btn btn-primary w-100" id="addRecordBtn">Add Record</button>
     </div>
-
     <!-- Summary -->
     <div class="form-section summary-box">
       <div><strong>Selected Model:</strong> <span id="selectedModel">None</span></div>
@@ -125,7 +117,6 @@
       <div><strong>Selected Service:</strong> <span id="selectedService">None</span></div>
       <div><strong>Selected Status:</strong> <span id="selectedStatus">Unpaid</span></div>
     </div>
-
     <!-- Total + Expenses -->
     <div class="form-section">
       <div class="d-flex justify-content-between">
@@ -137,18 +128,15 @@
         <span id="totalExpenses">₱0</span>
       </div>
     </div>
-
     <!-- Action Buttons -->
     <div class="d-flex flex-wrap gap-2 mb-3">
       <button class="btn btn-outline-primary" id="exportPDF">Export to PDF</button>
       <button class="btn btn-outline-secondary" id="togglePaidBtn">See All Paid</button>
       <button class="btn btn-outline-danger" id="clearAll">Clear All</button>
     </div>
-
     <!-- Record List -->
     <div id="noRecordsMessage">No records to display.</div>
     <div id="recordList"></div>
-
 
     <!-- Expense Section -->
     <div class="form-section mt-4">
@@ -159,7 +147,6 @@
       <ul id="expenseList" class="list-group"></ul>
     </div>
   </div>
-
   <script src="index.js"></script>
 </body>
 </html>
